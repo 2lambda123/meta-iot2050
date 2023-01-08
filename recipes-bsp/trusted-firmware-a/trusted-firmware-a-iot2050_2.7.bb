@@ -1,5 +1,5 @@
 #
-# Copyright (c) Siemens AG, 2020-2022
+# Copyright (c) Siemens AG, 2020-2023
 #
 # Authors:
 #  Jan Kiszka <jan.kiszka@siemens.com>
@@ -10,7 +10,9 @@
 
 require recipes-bsp/trusted-firmware-a/trusted-firmware-a-custom.inc
 
-SRC_URI += "https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/snapshot/trusted-firmware-a-${PV}.tar.gz"
+SRC_URI += " \
+    https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/snapshot/trusted-firmware-a-${PV}.tar.gz \
+    file://0001-build-Suppress-LOAD-segment-with-RWX-permissions-fai.patch"
 SRC_URI[sha256sum] = "53422dc649153838e03820330ba17cb10afe3e330ecde0db11e4d5f1361a33e6"
 
 S = "${WORKDIR}/trusted-firmware-a-${PV}"

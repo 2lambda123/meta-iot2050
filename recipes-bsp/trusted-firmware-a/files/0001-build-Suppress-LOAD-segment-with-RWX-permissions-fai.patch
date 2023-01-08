@@ -1,0 +1,37 @@
+From 891b32b217b4387b2d596edef6d93d05e3bc7438 Mon Sep 17 00:00:00 2001
+From: Jan Kiszka <jan.kiszka@siemens.com>
+Date: Sun, 8 Jan 2023 11:43:59 +0100
+Subject: [PATCH] build: Suppress "LOAD segment with RWX permissions" failures
+
+This is triggered with binutils from bookworm. Silence the warning /
+error for now. See https://developer.trustedfirmware.org/T996 for more.
+
+Signed-off-by: Jan Kiszka <jan.kiszka@siemens.com>
+Change-Id: Id6a784cd58e65cd6ce5ebf6d4c4038ec3f805cb4
+---
+ Makefile | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Makefile b/Makefile
+index c4350dc16..07b4d5ccb 100644
+--- a/Makefile
++++ b/Makefile
+@@ -427,6 +427,7 @@ else ifneq ($(findstring gcc,$(notdir $(LD))),)
+ # Pass ld options with Wl or Xlinker switches
+ TF_LDFLAGS		+=	-Wl,--fatal-warnings -O1
+ TF_LDFLAGS		+=	-Wl,--gc-sections
++TF_LDFLAGS		+=	-Wl,--no-warn-rwx-segment
+ ifeq ($(ENABLE_LTO),1)
+ 	ifeq (${ARCH},aarch64)
+ 		TF_LDFLAGS	+=	-flto -fuse-linker-plugin
+@@ -444,6 +445,7 @@ TF_LDFLAGS		+=	$(subst --,-Xlinker --,$(TF_LDFLAGS_$(ARCH)))
+ else
+ TF_LDFLAGS		+=	--fatal-warnings -O1
+ TF_LDFLAGS		+=	--gc-sections
++TF_LDFLAGS		+=	--no-warn-rwx-segment
+ # ld.lld doesn't recognize the errata flags,
+ # therefore don't add those in that case
+ ifeq ($(findstring ld.lld,$(notdir $(LD))),)
+-- 
+2.35.3
+
