@@ -127,9 +127,6 @@ IMAGE_INSTALL += " \
     iot2050-firmware-update \
     tcf-agent \
     mraa \
-    node-red \
-    node-red-gpio \
-    node-red-preinstalled-nodes \
     "
 
 IOT2050_CORAL_SUPPORT ?= "1"

@@ -35,9 +35,9 @@ NPM_CLASS_PACKAGE ?= "npm"
 OWN_NPM_CLASS_PACKAGE ?= "0"
 
 # needed as gyp from bullseye does not establish /usr/bin/python
-NPM_EXTRA_DEPS = "${@'python-is-python3' if d.getVar('NPM_REBUILD') == '1' else ''}"
+#NPM_EXTRA_DEPS = "${@'python-is-python3' if d.getVar('NPM_REBUILD') == '1' else ''}"
 
-DEBIAN_BUILD_DEPENDS =. "${@'python, libnode72,' if d.getVar('NPM_REBUILD') == '1' else ''}"
+DEBIAN_BUILD_DEPENDS =. "${@'python3, libnode108,' if d.getVar('NPM_REBUILD') == '1' else ''}"
 DEBIAN_BUILD_DEPENDS =. "${NPM_CLASS_PACKAGE},"
 DEBIAN_DEPENDS =. "\${shlibs:Depends}, \${misc:Depends},"
 
